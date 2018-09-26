@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html><head>
+  <script src="{% static 'core/rabbit/js/jquery.min.js' %}"></script>
+  <script src="{% static 'core/rabbit/js/sockjs.min.js' %}"></script>
+
+  <script src="{% static 'core/rabbit/js/stomp.js' %}"></script>
+  <style>
+      .box {
+          width: 440px;
+          float: left;
+          margin: 0 20px 0 20px;
+      }
+
+      .box div, .box input {
+          border: 1px solid;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+          width: 100%;
+          padding: 5px;
+          margin: 3px 0 10px 0;
+      }
+
+      .box div {
+          border-color: grey;
+          height: 300px;
+          overflow: auto;
+      }
+
+      div code {
+          display: block;
+      }
+
+      #first div code {
+          -moz-border-radius: 2px;
+          border-radius: 2px;
+          border: 1px solid #eee;
+          margin-bottom: 5px;
+      }
+
+      #second div {
+          font-size: 0.8em;
+      }
+  </style>
+  <title>RabbitMQ Web STOMP Examples : Temporary Queue</title>
+
+</head><body lang="en">
+
+    <div id="first">
+      <h2>Received</h2>
+      <div></div>
+    </div>
+
+    {% if debug %}
+        <div id="second" style="display: block">
+            <h2>Logs</h2>
+            <div></div>
+        </div>
+    {% else %}
+        <div id="second" style="display: none">
+            <h2>Logs</h2>
+            <div></div>
+        </div>
+    {% endif %}
+
+
+
+    <script>
+      $(function(){
+          $.get('{% url 'core:network_ajax_cron' network_id routing %}', function(response){
+              console.log(response);
+          })
+      });
+
+      if (location.search == '?ws') {
+          var ws = new WebSocket('ws://{{ server_ip }}:15674/ws');
+      } else {
+          var ws = new SockJS('http://{{ server_ip }}:15674/stomp');
+      }
+      var client = Stomp.over(ws);
+
+      client.heartbeat.outgoing=0;
+      client.heartbeat.incoming=0;
+
+      client.debug = function(e) {
+          $('#second div').append($("<code>").text(e));
+      };
+
+
+
+      var on_connect = function(x) {
+          id = client.subscribe("/queue/{{ routing }}", function(m) {
+              $('#first div').append($("<code>").text(m.body));
+          });
+      };
+      var on_error =  function() {
+        console.log('error');
+      };
+      client.connect('admin', 'password', on_connect, on_error, '/');
+    </script>
+</body></html>

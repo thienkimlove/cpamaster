@@ -1,0 +1,31 @@
+{% load static i18n core_helper %}
+<div class="navbar-custom">
+    <div class="container">
+        <div id="navigation">
+            <!-- Navigation Menu-->
+            <ul class="navigation-menu">
+                <li class="has-submenu">
+                    <a href="{% url 'index' %}"><i class="md md-dashboard"></i>Trang chủ</a>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="{% url 'core:offer_list' %}"><i class="md md-dashboard"></i>Offers</a>
+                </li>
+                <li class="has-submenu"><a href="{% url 'core:lead_list' %}"><i class="md md-dashboard"></i>Statistics</a></li>
+
+                 {% if request.user.is_staff %}
+                 <li class="has-submenu"><a href="{% url 'core:network_list' %}"><i class="md md-dashboard"></i>Networks</a></li>
+
+                 {% endif %}
+
+                {% if request.user.is_superuser %}
+                    <li class="has-submenu">
+                        <a href="{% url 'admin:index' %}"><i class="md md-class"></i>Admin</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+            <!-- End navigation menu        -->
+        </div>
+    </div> <!-- end container -->
+</div> <!-- end navbar-custom -->

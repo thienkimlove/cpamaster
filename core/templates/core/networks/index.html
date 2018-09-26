@@ -1,0 +1,151 @@
+{% extends 'core/base.html' %}
+{% load static i18n core_helper countries %}
+{% block inline_styles %}
+    <style>
+        .select2-container--default {
+            width: 250px !important;
+        }
+        .select2-container--default .select2-results > .select2-results__options {
+            max-height: 500px;
+            min-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+
+{% endblock %}
+
+{% block styles %}
+    <!-- DataTables -->
+    <link href="{% static "core/ubold/assets/plugins/datatables/jquery.dataTables.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/datatables/buttons.bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/datatables/fixedHeader.bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/datatables/responsive.bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/datatables/scroller.bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/datatables/dataTables.colVis.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/datatables/dataTables.bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/datatables/fixedColumns.dataTables.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "core/ubold/assets/plugins/select2/css/select2.min.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Danh sách Network</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form class="form-inline" role="form" id="search-form">
+                            {% csrf_token %}
+
+                            <div class="form-group m-l-10">
+                                <label class="sr-only" for="">Network Name</label>
+                                <input type="text" class="form-control" placeholder="Tên Network" name="name"/>
+                            </div>
+
+
+
+                            <div class="form-group m-l-10">
+                                <label class="sr-only" for="">Active</label>
+                                <select name="active" class="form-control select2">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <p class="text-muted font-13 m-b-30"></p>
+                    <table id="dataTables" class="table table-striped table-bordered table-actions-bar">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Cron URL</th>
+                                <th>Offer Count</th>
+                                <th>Status</th>
+                                <th>Update At</th>
+                                <th>Last Cron At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "core/ubold/assets/plugins/datatables/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.bootstrap.js" %}"></script>
+
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.buttons.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/buttons.bootstrap.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/jszip.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/pdfmake.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/vfs_fonts.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/buttons.html5.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/buttons.print.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.fixedHeader.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.keyTable.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/responsive.bootstrap.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.scroller.min.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.colVis.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/datatables/dataTables.fixedColumns.min.js" %}"></script>
+
+    <script src="{% static "core/ubold/assets/pages/datatables.init.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/select2/js/select2.full.min.js" %}"></script>
+    <script src="{% static "core/js/handlebars.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/moment/moment.js" %}"></script>
+    <script src="{% static "core/ubold/assets/plugins/bootstrap-daterangepicker/daterangepicker.js" %}"></script>
+{% endblock %}
+
+{% block inline_scripts %}
+    <script type="text/javascript">
+        $('.select2').select2();
+
+        $(function () {
+            let dataTable = $("#dataTables").DataTable({
+                searching: false,
+                serverSide: true,
+                processing: true,
+                ajax: {
+                    url: '{% url 'core:network_data_table' %}',
+                    data: function (d) {
+                        d.name = $('input[name=name]').val();
+                        d.active = $('select[name=active]').val();
+                    }
+                },
+                columns: [
+                    {data: 'name', name: 'name', orderable: true},
+                    {data: 'cron_url', name: 'cron_url', orderable: true},
+                    {data: 'count_offer', name: 'count_offer', orderable: false},
+                    {data: 'active', name: 'active', orderable: false},
+                    {data: 'updated_at', name: 'updated_at', orderable: false},
+                    {data: 'last_cron_at', name: 'last_cron_at', orderable: false},
+                    {data: 'action', name: 'action', orderable: false},
+                ],
+                order: [[1, 'desc']]
+            });
+
+            $('#search-form input,select').on('change', function(e) {
+                e.preventDefault();
+                dataTable.draw();
+            });
+        });
+    </script>
+{% endblock %}

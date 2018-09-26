@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name cpamaster.org;
+
+    client_max_body_size 500M;
+
+    access_log /var/log/nginx/cpamaster_access.log;
+    error_log /var/log/nginx/cpamaster_error.log;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        alias /var/www/html/cpamaster/static/;
+    }
+
+     location /media/ {
+            alias /var/www/html/cpamaster/media/;
+     }
+
+    location /files/ {
+            alias /var/www/html/cpamaster/files/;
+     }
+
+    location / {
+        include         uwsgi_params;
+        uwsgi_pass      unix:/run/uwsgi/cpamaster.sock;
+    }
+}

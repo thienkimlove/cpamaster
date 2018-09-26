@@ -1,0 +1,343 @@
+{%  extends 'core/base.html' %}
+
+{% load static i18n core_helper %}
+
+{%  block styles %}
+    {{ super }}
+    <link href="{% static "core/ubold/assets/plugins/c3/c3.min.css" %}" rel="stylesheet" type="text/css"  />
+    <link href="{% static "core/ubold/assets/plugins/switchery/css/switchery.min.css" %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    {{ super }}
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="text-muted page-title-alt">Welcome {{ request.user.username }}</p>
+            <p class="text-muted page-title-alt">Api receive Lead <b>http://cpamaster.org{% url 'core:offer_postback' %}?sub_id=SUB_ID</b></p>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{today_money}}</div>
+                            <div>Money Today</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ month_money }}</div>
+                            <div>Money This Month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-shopping-cart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">{{ total_money }}</div>
+                            <div>Total</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- /.panel -->
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Statistic By User Today
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Money</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for today_statistic_by_user in today_statistic_by_users %}
+                            <tr>
+                                <td>{{today_statistic_by_user.click_user_name}}</td>
+                                <td>{{ today_statistic_by_user.sum_money  }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Statistic By Network Today
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Network</th>
+                                <th>Money</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                           {% for today_statistic_by_network in today_statistic_by_networks %}
+                                <tr>
+                                    <td>{{today_statistic_by_network.offer_network_name}}</td>
+                                    <td>{{today_statistic_by_network.sum_money }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.panel-body -->
+            </div>    <!-- /.panel -->
+        </div>
+
+    </div>
+
+     {% if today_offers %}
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- /.panel -->
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Danh sách offer chạy ngày hôm nay
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Clicks</th>
+                                            <th>Lead</th>
+                                            <th>CR</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for k, v in today_offers.items %}
+                                            <tr>
+                                                <td>{{ v.name }}</td>
+                                                <td>{{ k }}</td>
+                                                <td>{{ v.total_clicks }}</td>
+                                                <td>{{ v.total_leads }}</td>
+                                                <td>{{ v.site_cr }}</td>
+                                                <td>{{ v.price }}</td>
+                                                <td>{{ v.total_money }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.col-lg-4 (nested) -->
+
+                            <!-- /.col-lg-8 (nested) -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>            <!-- /.panel -->
+
+                <!-- /.panel -->
+            </div>
+        </div>
+     {% endif %}
+
+
+      {% if yesterday_offers %}
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- /.panel -->
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Danh sách offer chạy ngày hôm qua
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Clicks</th>
+                                            <th>Lead</th>
+                                            <th>CR</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for k, v in yesterday_offers.items %}
+                                            <tr>
+                                                <td>{{ v.name }}</td>
+                                                <td>{{ k }}</td>
+                                                <td>{{ v.total_clicks }}</td>
+                                                <td>{{ v.total_leads }}</td>
+                                                <td>{{ v.site_cr }}</td>
+                                                <td>{{ v.price }}</td>
+                                                <td>{{ v.total_money }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.col-lg-4 (nested) -->
+
+                            <!-- /.col-lg-8 (nested) -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>            <!-- /.panel -->
+
+                <!-- /.panel -->
+            </div>
+        </div>
+     {% endif %}
+
+     {% if week_offers %}
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- /.panel -->
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Danh sách offer chạy tuần này
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Clicks</th>
+                                            <th>Lead</th>
+                                            <th>CR</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for k, v in week_offers.items %}
+                                            <tr>
+                                                <td>{{ v.name }}</td>
+                                                <td>{{ k }}</td>
+                                                <td>{{ v.total_clicks }}</td>
+                                                <td>{{ v.total_leads }}</td>
+                                                <td>{{ v.site_cr }}</td>
+                                                <td>{{ v.price }}</td>
+                                                <td>{{ v.total_money }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.col-lg-4 (nested) -->
+
+                            <!-- /.col-lg-8 (nested) -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>            <!-- /.panel -->
+
+                <!-- /.panel -->
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="row" id="site-recent-lead">
+         Waiting 10 seconds...
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super }}
+    <script src="{% static "core/ubold/assets/plugins/switchery/js/switchery.min.js" %}"></script>
+
+    <!--C3 Chart-->
+    <script type="text/javascript" src="{% static "core/ubold/assets/plugins/d3/d3.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "core/ubold/assets/plugins/c3/c3.min.js" %}"></script>
+
+    <script>
+        $(document).ready(function(){
+            setInterval(function(){
+                //  $('#site-recent-lead').html('<img width="200" align="center" height="auto" src="/image/loading.gif" />');
+                $.getJSON('{% url 'core:recent_lead' %}', function(response){
+                    $('#site-recent-lead').html(response.html);
+                });
+            }, 10000);
+        });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+{% endblock %}

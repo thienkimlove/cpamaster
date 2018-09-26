@@ -1,0 +1,24 @@
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-bell fa-fw"></i>Site Recent Lead
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="list-group">
+                {% for recent_lead in recent_leads %}
+                    <a class="list-group-item" href="#">
+                        <b>{{recent_lead.click_user_name}} </b> lead offer <b>{{recent_lead.offer_name}}(ID={{ recent_lead.offer_id }})</b> with IP <b>{{recent_lead.click_ip}}</b> - ClickID=<b>{{recent_lead.click_id}} | Time Click: {{recent_lead.click_time}} || PostbackId= {{recent_lead.lead_id}}</b>
+                        <span class="pull-right text-muted small">
+                            <em>{{recent_lead.lead_time}}</em>
+                         </span>
+                    </a>
+                {% endfor %}
+            </div>
+            <!-- /.list-group -->
+            <a class="btn btn-default btn-block" href="{% url 'core:offer_list' %}">View All Offers</a>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>

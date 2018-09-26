@@ -1,0 +1,262 @@
+@font-face {
+  font-family: 'Saletool';
+  src:  url('fonts/Saletool.eot?2j4qgm');
+  src:  url('fonts/Saletool.eot?2j4qgm#iefix') format('embedded-opentype'),
+    url('fonts/Saletool.ttf?2j4qgm') format('truetype'),
+    url('fonts/Saletool.woff?2j4qgm') format('woff'),
+    url('fonts/Saletool.svg?2j4qgm#Saletool') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="sat-"], [class*=" sat-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Saletool' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sat-REM:before {
+  content: "\e94c";
+}
+.sat-CHG:before {
+  content: "\e94a";
+  color: #6b6b6b;
+}
+.sat-LNE:before {
+  content: "\e94b";
+  color: #6b6b6b;
+}
+.sat-delete:before {
+  content: "\e949";
+}
+.sat-filter .path1:before {
+  content: "\e947";
+  color: rgb(255, 255, 255);
+}
+.sat-filter .path2:before {
+  content: "\e948";
+  margin-left: -1.0771484375em;
+  color: rgb(22, 160, 133);
+}
+.sat-ADDMORE:before {
+  content: "\e900";
+}
+.sat-ALARM:before {
+  content: "\e901";
+}
+.sat-BACK:before {
+  content: "\e902";
+}
+.sat-BAG:before {
+  content: "\e903";
+}
+.sat-banhang:before {
+  content: "\e904";
+}
+.sat-CA:before {
+  content: "\e905";
+}
+.sat-CAB:before {
+  content: "\e906";
+}
+.sat-CAM:before {
+  content: "\e907";
+}
+.sat-checked:before {
+  content: "\e908";
+}
+.sat-BAT:before {
+  content: "\e909";
+}
+.sat-CHI:before {
+  content: "\e90a";
+}
+.sat-CHR:before {
+  content: "\e90b";
+}
+.sat-CLOSE:before {
+  content: "\e90c";
+}
+.sat-congno:before {
+  content: "\e90d";
+}
+.sat-CPU:before {
+  content: "\e90e";
+}
+.sat-CRE:before {
+  content: "\e90f";
+}
+.sat-Danh-muc-san-pham:before {
+  content: "\e910";
+}
+.sat-DKT:before {
+  content: "\e911";
+}
+.sat-DONE:before {
+  content: "\e912";
+}
+.sat-Donhang:before {
+  content: "\e913";
+}
+.sat-DVD:before {
+  content: "\e914";
+}
+.sat-EC:before {
+  content: "\e915";
+}
+.sat-Filter:before {
+  content: "\e916";
+}
+.sat-Gcafe:before {
+  content: "\e917";
+}
+.sat-Giohang:before {
+  content: "\e918";
+}
+.sat-GPD:before {
+  content: "\e919";
+}
+.sat-HDD:before {
+  content: "\e91a";
+}
+.sat-HOL:before {
+  content: "\e91b";
+}
+.sat-HS:before {
+  content: "\e91c";
+}
+.sat-HSF:before {
+  content: "\e91d";
+}
+.sat-IPA:before {
+  content: "\e91e";
+}
+.sat-KB:before {
+  content: "\e91f";
+}
+.sat-KBM:before {
+  content: "\e920";
+}
+.sat-KCA:before {
+  content: "\e921";
+}
+.sat-Khuyenmai:before {
+  content: "\e922";
+}
+.sat-LBA:before {
+  content: "\e923";
+}
+.sat-LTP:before {
+  content: "\e924";
+}
+.sat-MB:before {
+  content: "\e925";
+}
+.sat-MDM:before {
+  content: "\e926";
+}
+.sat-ME:before {
+  content: "\e927";
+}
+.sat-MO:before {
+  content: "\e928";
+}
+.sat-MOB:before {
+  content: "\e929";
+}
+.sat-MPD:before {
+  content: "\e92a";
+}
+.sat-MS:before {
+  content: "\e92b";
+}
+.sat-next:before {
+  content: "\e92c";
+}
+.sat-NIC:before {
+  content: "\e92d";
+}
+.sat-OTH:before {
+  content: "\e92e";
+}
+.sat-OUL:before {
+  content: "\e92f";
+}
+.sat-PSU:before {
+  content: "\e930";
+}
+.sat-PTR:before {
+  content: "\e931";
+}
+.sat-RAC:before {
+  content: "\e932";
+}
+.sat-RAM:before {
+  content: "\e933";
+}
+.sat-REC:before {
+  content: "\e934";
+}
+.sat-RJ:before {
+  content: "\e935";
+}
+.sat-SK:before {
+  content: "\e936";
+}
+.sat-SSD:before {
+  content: "\e937";
+}
+.sat-SV:before {
+  content: "\e938";
+}
+.sat-SW:before {
+  content: "\e939";
+}
+.sat-TAB:before {
+  content: "\e93a";
+}
+.sat-Taichinh:before {
+  content: "\e93b";
+}
+.sat-Trangchu:before {
+  content: "\e93c";
+}
+.sat-transfer:before {
+  content: "\e93d";
+}
+.sat-TRASH:before {
+  content: "\e93e";
+}
+.sat-TVB:before {
+  content: "\e93f";
+}
+.sat-unchecked:before {
+  content: "\e940";
+}
+.sat-UPS:before {
+  content: "\e941";
+}
+.sat-USB:before {
+  content: "\e942";
+}
+.sat-USER:before {
+  content: "\e943";
+}
+.sat-Vanchuyen:before {
+  content: "\e944";
+}
+.sat-VGA:before {
+  content: "\e945";
+}
+.sat-WCM:before {
+  content: "\e946";
+}
