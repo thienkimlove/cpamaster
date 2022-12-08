@@ -1,5 +1,5 @@
 beautifulsoup4==4.6.1
-certifi==2018.4.16
+certifi==2022.12.7
 chardet==3.0.4
 Django==2.0.7
 -e git+https://github.com/thienkimlove/django-admin-menu.git@35e2945849fbe59903403c20a19b3f479ffb6ec4#egg=django_admin_menu
